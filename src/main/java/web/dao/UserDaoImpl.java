@@ -38,12 +38,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteUser(long id) {
-        User user = getUserById(id);
-        if (null == user) {
-            throw new NullPointerException("User not found");
-        }
-        entityManager.remove(user);
-        entityManager.flush();
+        entityManager.createQuery("DELETE FROM User u WHERE u.id = :p").setParameter("p", id).executeUpdate();
+
     }
 
 }
